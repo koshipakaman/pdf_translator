@@ -22,7 +22,7 @@ def text_file_translate(text_file):
     
     name, ext = os.path.splitext(text_file)
 
-    with open(f"{name}.txt", "r", encoding="uft-8") as f:
+    with open(f"{name}.txt", "r", encoding="utf-8") as f:
 
         lines = f.read()
 
