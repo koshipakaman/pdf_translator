@@ -22,7 +22,7 @@ def text_file_translate(text_file):
     
     name, ext = os.path.splitext(text_file)
 
-    with open(f"{name}.txt", "r") as f:
+    with open(f"{name}.txt", "r", encoding="uft-8") as f:
 
         lines = f.read()
 
@@ -53,7 +53,7 @@ def text_file_translate(text_file):
                 out += ":AttributeError\n"
                 out += paragraph + '\n'
 
-    with open(f"{name}_trans.txt", "w") as f:
+    with open(f"{name}_trans.txt", "w", encoding="utf-8") as f:
 
         f.write(out)
 

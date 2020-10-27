@@ -55,7 +55,7 @@ def labeling(lines):
 
 def save_paragraphs(paragraphs, filepath):
 
-    with open(filepath, "w") as f:
+    with open(filepath, "w", encoding="utf-8") as f:
 
         for paragraph in paragraphs:
             
