@@ -12,7 +12,7 @@ from trans import translate, text_file_translate
 args = sys.argv
 file_name = args[1]
 
-pdf_path = os.path.expanduser("~/Dropbox/research/trans/main")
+pdf_path = os.path.expanduser("~/")
 
 # parser = argparse.ArgumentParser()
 # args = parser.parse_arg()
