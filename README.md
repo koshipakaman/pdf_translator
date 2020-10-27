@@ -8,6 +8,8 @@ $ pip install -r requirements.txt
 ```
 
 ## :blue_heart: Usage
+You can change pdf_path. (at main.py)
+
 pdf to translated text.
 
 ```bash
