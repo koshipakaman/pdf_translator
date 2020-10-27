@@ -1,12 +1,23 @@
 pdf_translater
 ====
+## Requirements
+- python3.7+
 
-# Usage
+$ pip install -r requirements.txt
 
+## :blueheart: Usage
 pdf to translated text.
 
-python3 main.py ex.pdf
+```bash
+$ python3 main.py ex.pdf
+```
 
 If you want to only text translate,
 
-python3 main.py ex.txt
+```bash
+$ python3 main.py ex.txt
+```
+
+## :poop: Author
+
+- koshipakaman 
