@@ -1,6 +1,6 @@
 pdf_translater
 ====
-## Requirements
+## :green_heart: Requirements
 - python3.7+
 
 ```bash
