@@ -1,0 +1,4 @@
+tqdm
+pdfminer.six
+googletrans
+nltk
