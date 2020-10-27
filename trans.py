@@ -31,6 +31,7 @@ def text_file_translate(text_file):
     paragraphs = split_paragraphs(lines)
 
     out = ''
+    error_count = 0
     for paragraph in tqdm(paragraphs, desc="translate"):
 
         if len(paragraph) == 0:
@@ -42,15 +43,18 @@ def text_file_translate(text_file):
             out += paragraph + '\n'
 
         else:
-            out += translate(paragraph) + '\n'
+
+            try:
+                out += translate(paragraph) + '\n'
+
+            except AttributeError:
+                error_count += 1
+                
+                out += ":AttributeError\n"
+                out += paragraph + '\n'
 
     with open(f"{name}_trans.txt", "w") as f:
 
         f.write(out)
-    
 
-if __name__ == "__main__":
-    
-    # args = sys.argv
-    # file_name = args[1]
-    text_file_translate("pixelCNN_test.txt") 
+    print(f"Done. (Raise {error_count} exceptions.)")
