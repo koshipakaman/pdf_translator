@@ -13,7 +13,7 @@ You can change pdf_path. (at main.py)
 pdf -> translated text
 ```bash
 $ python3 main.py {.pdf}
-(create ex.txt)
+(create .txt)
 ```
 
 If you use only text file to translate,
