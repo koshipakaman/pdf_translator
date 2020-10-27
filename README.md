@@ -3,9 +3,11 @@ pdf_translater
 ## Requirements
 - python3.7+
 
+```bash
 $ pip install -r requirements.txt
+```
 
-## :blueheart: Usage
+## :blue_heart: Usage
 pdf to translated text.
 
 ```bash
