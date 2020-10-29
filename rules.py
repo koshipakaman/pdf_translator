@@ -1,5 +1,4 @@
 import re
-# import nltk
 import numpy as np
 
 from rule import OrRule, AndRule
@@ -10,8 +9,8 @@ parse rules
 class Header(OrRule):
 
     header_number_patterns = [
-        re.compile('\d\.\d?'), 
-        re.compile('(\d+\.)+'), 
+        re.compile('\d\.\d?'),
+        re.compile('(\d+\.)+'),
         re.compile('[A-Z]\.\d?\.?'),
     ]
     capitalize_word_pattern = re.compile('[A-Z]\D+')
@@ -31,7 +30,7 @@ class Header(OrRule):
         return bool(Header.capitalize_word_pattern.fullmatch(word))
 
     def all_capital_word(self, word):
-        # ex. ABSTRACT 
+        # ex. ABSTRACT
         return bool(Header.all_capital_word_pattern.fullmatch(word))
 
     def camel_word(self, word):
@@ -101,7 +100,7 @@ if __name__ == "__main__":
     print(is_header("1.2."))
     print(is_header("1.2.3."))
     print(is_header("Abst"))
-    print(is_header("ABST"))
+    print(is_header("ABSTRACT"))
     print(is_header("abst"))
     print(is_header("..."))
 

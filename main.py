@@ -9,13 +9,16 @@ from pdfminer.high_level import extract_text
 
 from trans import translate, text_file_translate
 
-args = sys.argv
-file_name = args[1]
+import config
 
-pdf_path = os.path.expanduser("~/")
+pdf_path = config.pdf_path
 
-# parser = argparse.ArgumentParser()
-# args = parser.parse_arg()
+parser = argparse.ArgumentParser()
+parser.add_argument('file_name')
+
+args = parser.parse_args()
+
+file_name = args.file_name
 
 name, ext = os.path.splitext(file_name)
 
@@ -36,7 +39,7 @@ if ext == ".pdf":
 
         yn = input()
 
-        if yn == "y": 
+        if yn == "y":
             text_file_translate(f"{pdf_path}/{name}.txt")
             break
 

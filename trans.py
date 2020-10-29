@@ -1,6 +1,7 @@
 import os, sys
 from pprint import pprint
-import argparse
+import requests
+# import time
 
 from split_paragraphs import split_paragraphs
 from tqdm import tqdm
@@ -10,16 +11,17 @@ from pdfminer.high_level import extract_text
 from googletrans import Translator
 
 
+translator = Translator()
+
 def translate(text, src='en', dest='ja'):
 
-    translator = Translator()
     trans = translator.translate(text, src=src, dest=dest)
 
     return trans.text
 
 
 def text_file_translate(text_file):
-    
+
     name, ext = os.path.splitext(text_file)
 
     with open(f"{name}.txt", "r", encoding="utf-8") as f:
@@ -47,11 +49,12 @@ def text_file_translate(text_file):
             try:
                 out += translate(paragraph) + '\n'
 
-            except AttributeError:
+            except:
                 error_count += 1
-                
-                out += ":AttributeError\n"
+
+                out += ":TranslatorExcept\n"
                 out += paragraph + '\n'
+
 
     with open(f"{name}_trans.txt", "w", encoding="utf-8") as f:
 
