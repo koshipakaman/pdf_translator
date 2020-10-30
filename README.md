@@ -8,7 +8,7 @@ $ pip install -r requirements.txt
 ```
 
 ## :blue_heart: Usage
-You can change pdf_path. (at config.py)
+You can change translate configuration at "config.py".
 
 pdf -> translated text
 ```bash
@@ -16,8 +16,8 @@ $ python3 main.py {.pdf}
 (create .txt)
 ```
 
-If you use only text file to translate,
-(text -> translated text)
+text -> translated text
+(If you use only text file to translate, )
 ```bash
 $ python3 main.py {.txt}
 ```

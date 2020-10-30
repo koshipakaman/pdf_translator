@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 from pdfminer.high_level import extract_text
 
-from trans import translate, text_file_translate
+from trans import text_file_translate
 
 import config
 
@@ -34,7 +34,6 @@ if ext == ".pdf":
     print(f"Saved {pdf_path}/{name}.txt")
 
     print("Do you want to continue translating? [y/n] > ")
-
     while True:
 
         yn = input()
@@ -48,10 +47,15 @@ if ext == ".pdf":
             break
 
         else:
-            print("require [y/n].")
+            print("Please input [y/n].")
 
 elif ext == ".txt":
-    text_file_translate(f"{pdf_path}/{file_name}")
+    text_file_translate(f"{pdf_path}/{file_name}",
+                        engine=config.engine,
+                        API_KEY=config.API_KEY,
+                        source=config.source,
+                        target=config.target,
+                        )
 
 else:
     raise Exception(f"{ext} file is not required.")

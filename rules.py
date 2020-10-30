@@ -3,9 +3,12 @@ import numpy as np
 
 from rule import OrRule, AndRule
 
+
 """
 parse rules
 """
+
+
 class Header(OrRule):
 
     header_number_patterns = [
@@ -17,25 +20,25 @@ class Header(OrRule):
     all_capital_word_pattern = re.compile('[A-Z]+')
     camel_pattern = re.compile('[A-Z][a-z]*?[A-Z]+[A-Za-z]*?')
 
-    def header_number(self, word):
+    def header_number(self, text):
         # ex. 2., 2.2, 2.2.
         for pattern in Header.header_number_patterns:
-            if bool(pattern.fullmatch(word)):
+            if bool(pattern.fullmatch(text)):
                 return True
 
         return False
 
-    def capitalize_word(self, word):
+    def capitalize_text(self, text):
         # ex. Abstract
-        return bool(Header.capitalize_word_pattern.fullmatch(word))
+        return bool(Header.capitalize_word_pattern.fullmatch(text))
 
-    def all_capital_word(self, word):
+    def all_capital_text(self, text):
         # ex. ABSTRACT
-        return bool(Header.all_capital_word_pattern.fullmatch(word))
+        return bool(Header.all_capital_word_pattern.fullmatch(text))
 
-    def camel_word(self, word):
+    def camel_text(self, text):
         # ex. AbstractIntroduction
-        return bool(Header.camel_pattern.fullmatch(word))
+        return bool(Header.camel_pattern.fullmatch(text))
 
 
 
@@ -53,8 +56,10 @@ noise paragraph rules
 """
 class Noise(OrRule):
 
-    def FF(self, text): # form feed (^L)
+    brakets_pattern = re.compile('\(.*\)')
 
+    def FF(self, text):
+        # form feed (^L)
         return text == chr(12)
 
     def not_header(self, text):
@@ -73,6 +78,11 @@ class Noise(OrRule):
                 return False
 
         return True
+
+    def brakets(self, text):
+
+        return bool(Noise.brakets_pattern.fullmatch(text))
+
 
 
 def is_float(s):
@@ -111,3 +121,6 @@ if __name__ == "__main__":
     print(is_noise("4.4 (4.35) 3.12"))
     print(is_noise("m = 100"))
     print(is_noise("i=1"))
+    print(is_noise("(1.1)"))
+    print(is_noise("(abst)"))
+    print(is_noise("(abst ract)"))

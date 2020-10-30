@@ -1,26 +1,58 @@
-import os, sys
-from pprint import pprint
+import os
 import requests
-# import time
 
 from split_paragraphs import split_paragraphs
 from tqdm import tqdm
 
-from pdfminer.high_level import extract_text
-
 from googletrans import Translator
 
 
-translator = Translator()
+class GoogleTranslator:
 
-def translate(text, src='en', dest='ja'):
+    def __init__(self, API_KEY=None, source='en', target='ja'):
 
-    trans = translator.translate(text, src=src, dest=dest)
+        self.translator = Translator()
+        self.source = source
+        self.target = target
 
-    return trans.text
+        # TODO: use API
+
+    def __call__(self, text):
+
+        trans = self.translator.translate(text, self.source, self.target)
+        return trans.text
 
 
-def text_file_translate(text_file):
+class DeepLTranslator:
+
+    def __init__(self, API_KEY=None, source='en', target='ja'):
+
+        self.params = {
+                'auth_key': API_KEY,
+                'source_lang': source.upper(),
+                'target_lang': target.upper(),
+        }
+        self.URL = "https://api.deepl.com/v2/translate"
+
+    def __call__(self, text):
+
+        self.params['text'] = text
+        request = requests.post(self.URL, data=self.params)
+
+        res = request.json()
+        return res['translations'][0]['text']
+
+
+engines = {
+        'google': GoogleTranslator,
+        'deepl': DeepLTranslator,
+    }
+
+
+def text_file_translate(text_file,
+                        engine="google",
+                        API_KEY=None,
+                        source='en', target='ja'):
 
     name, ext = os.path.splitext(text_file)
 
@@ -31,6 +63,7 @@ def text_file_translate(text_file):
     lines = lines.splitlines()
 
     paragraphs = split_paragraphs(lines)
+    translate = engines[engine](API_KEY, source, target)
 
     out = ''
     error_count = 0
@@ -49,12 +82,13 @@ def text_file_translate(text_file):
             try:
                 out += translate(paragraph) + '\n'
 
-            except:
+            except Exception as e:
+                print(e)
+
                 error_count += 1
 
-                out += ":TranslatorExcept\n"
+                out += ":Exception\n"
                 out += paragraph + '\n'
-
 
     with open(f"{name}_trans.txt", "w", encoding="utf-8") as f:
 
