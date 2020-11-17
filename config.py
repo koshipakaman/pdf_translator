@@ -1,5 +1,5 @@
 import os
-pdf_path = os.path.expanduser("~/Dropbox/research/trans/main")
+pdf_path = os.path.expanduser("~")
 # engine: ["google", "deepl"]
 engine = "google"
 API_KEY = ''
