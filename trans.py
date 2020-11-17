@@ -1,4 +1,6 @@
 import os
+import sys
+import traceback
 import requests
 
 from split_paragraphs import split_paragraphs
@@ -19,7 +21,7 @@ class GoogleTranslator:
 
     def __call__(self, text):
 
-        trans = self.translator.translate(text, self.source, self.target)
+        trans = self.translator.translate(text, src=self.source, dest=self.target)
         return trans.text
 
 
@@ -72,8 +74,6 @@ def text_file_translate(text_file,
         if len(paragraph) == 0:
             continue
 
-        out += '\n\n'
-
         if paragraph[0] == "#":
             out += paragraph + '\n'
 
@@ -83,15 +83,25 @@ def text_file_translate(text_file,
                 out += translate(paragraph) + '\n'
 
             except Exception as e:
-                print(e)
+
+                traceback.print_exc()
+                print("paragraph:" + paragraph)
 
                 error_count += 1
 
-                out += ":Exception\n"
+                out += f"{type(e)}\n"
                 out += paragraph + '\n'
+
+            out += '\n\n'
 
     with open(f"{name}_trans.txt", "w", encoding="utf-8") as f:
 
         f.write(out)
 
     print(f"Done. (Raise {error_count} exceptions.)")
+
+
+if __name__ == "__main__":
+
+    translate = engines["google"]()
+    print(translate("Published as a conference paper at ICLR 2019"))
