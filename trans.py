@@ -87,7 +87,7 @@ def text_file_translate(text_file,
             except Exception as e:
 
                 traceback.print_exc()
-                print(u"paragraph:" + paragraph)
+                print(paragraph)
 
                 error_count += 1
 
