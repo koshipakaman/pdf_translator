@@ -1,5 +1,6 @@
 from rules import is_noise
 
+
 def concat_sentences(sentences):
 
     all_words = []
@@ -7,12 +8,14 @@ def concat_sentences(sentences):
     for sentence in sentences:
 
         words = sentence.split()
-        for word in words: all_words.append(word)
+        for word in words:
+            all_words.append(word)
 
     return " ".join(all_words)
-        
+
+
 def split_paragraphs(lines):
-    
+
     # lines = text.splitlines()
     paragraphs, paragraph = [], []
 
@@ -29,7 +32,7 @@ def split_paragraphs(lines):
                 paragraph = []
 
         else:
-            paragraph.append(line) 
+            paragraph.append(line)
 
     return paragraphs
 
@@ -58,7 +61,7 @@ def save_paragraphs(paragraphs, filepath):
     with open(filepath, "w", encoding="utf-8") as f:
 
         for paragraph in paragraphs:
-            
+
             f.write("\n\n")
             f.write(paragraph + "\n")
 
@@ -68,4 +71,5 @@ if __name__ == "__main__":
     l = ['In contrast, traditional generative models for graphs (e.g.,Barabási-Albert ',
          'model, Kronecker graphs, exponential random graphs, and stochastic block ',
          ]
-    print(concat(l))
+
+    print(concat_sentences(l))

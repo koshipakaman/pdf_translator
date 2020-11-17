@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 import traceback
@@ -69,12 +70,13 @@ def text_file_translate(text_file,
 
     out = ''
     error_count = 0
+
     for paragraph in tqdm(paragraphs, desc="translate"):
 
         if len(paragraph) == 0:
             continue
 
-        if paragraph[0] == "#":
+        elif paragraph[0] == "#":
             out += paragraph + '\n'
 
         else:
@@ -85,7 +87,7 @@ def text_file_translate(text_file,
             except Exception as e:
 
                 traceback.print_exc()
-                print("paragraph:" + paragraph)
+                print(u"paragraph:" + paragraph)
 
                 error_count += 1
 
