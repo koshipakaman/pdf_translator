@@ -1,7 +1,7 @@
 import os, sys
-from pprint import pprint
-import argparse
+sys.dont_write_bytecode = True
 
+import argparse
 from split_paragraphs import split_paragraphs, labeling, save_paragraphs
 from tqdm import tqdm
 
@@ -22,6 +22,12 @@ file_name = args.file_name
 
 name, ext = os.path.splitext(file_name)
 
+print("config:")
+print(f"pdf_path:{config.pdf_path}")
+print(f"engine:{config.engine}")
+print(f"source:{config.source}")
+print(f"target:{config.target}")
+
 if ext == ".pdf":
 
     text = extract_text(f"{pdf_path}/{file_name}")
@@ -31,15 +37,21 @@ if ext == ".pdf":
     lines = labeling(lines)
     paragraphs = split_paragraphs(lines)
     save_paragraphs(paragraphs, f"{pdf_path}/{name}.txt")
-    print(f"Saved {pdf_path}/{name}.txt")
 
+    print(f"Saved {pdf_path}/{name}.txt")
     print("Do you want to continue translating? [y/n] > ")
+
     while True:
 
         yn = input()
 
         if yn == "y":
-            text_file_translate(f"{pdf_path}/{name}.txt")
+            text_file_translate(f"{pdf_path}/{file_name}",
+                                engine=config.engine,
+                                API_KEY=config.API_KEY,
+                                source=config.source,
+                                target=config.target,
+                                )
             break
 
         elif yn == "n":

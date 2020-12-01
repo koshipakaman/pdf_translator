@@ -57,6 +57,8 @@ def text_file_translate(text_file,
                         API_KEY=None,
                         source='en', target='ja'):
 
+    assert engine in ["google", "deepl"], f"Actual: {engine}. unknown engine."
+
     name, ext = os.path.splitext(text_file)
 
     with open(f"{name}.txt", "r", encoding="utf-8") as f:
@@ -105,5 +107,5 @@ def text_file_translate(text_file,
 
 if __name__ == "__main__":
 
-    translate = engines["google"]()
+    translate = engines["deepl"]()
     print(translate("Published as a conference paper at ICLR 2019"))
